@@ -15,7 +15,7 @@ NAME_MAP = {
     "glass": "kaca",
 }
 
-MODEL_PATH = Path(__file__).parent / "models" / "best_waste_yolov8s.pt"
+MODEL_PATH = Path(__file__).parent / "models" / "waste_yolov8s_best.pt"
 DEFAULT_CONF = 0.225   # confidence F1-optimal dari notebook teman
 IMGSZ = 640            # sama dengan ukuran saat model dilatih
 
