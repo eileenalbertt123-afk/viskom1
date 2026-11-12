@@ -2,7 +2,7 @@ import pandas as pd
 import streamlit as st
 from PIL import Image, ImageOps
 
-   from detector import detect, CLASSES, DEFAULT_CONF
+from detector import detect, CLASSES, DEFAULT_CONF
 from utils import resize_max, draw_detections, count_per_class
 
 st.set_page_config(page_title="Deteksi Sampah - Bank Sampah", layout="wide")
