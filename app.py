@@ -43,7 +43,8 @@ with col_out:
 
 with st.expander("Keterbatasan sistem"):
     st.markdown(
-        "- Hanya 4 kategori: plastik, kertas/kardus, logam, kaca (organik belum didukung)\n"
+        "- Hanya 5 kategori: plastik, kertas/kardus, logam, organik, kaca\n"
+        "- Kardus tidak punya kelas sendiri, digabung ke kategori kertas/kardus\n"
         "- Tumpukan sangat padat atau tertutup total tidak dijamin terdeteksi\n"
         "- Tidak membedakan sub-jenis plastik (PET, HDPE, PP)\n"
         "- Hanya berbasis citra, tanpa sensor berat atau material\n"
