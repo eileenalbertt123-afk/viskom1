@@ -2,21 +2,19 @@ from pathlib import Path
 from ultralytics import YOLO
 
 # Kelas aplikasi (urutan dipakai untuk tabel ringkasan)
-CLASSES = ["plastik", "kertas_kardus", "logam", "organik", "kaca"]
+CLASSES = ["plastik", "kertas_kardus", "logam", "kaca"]
 
-# Model teman memakai nama Inggris: glass, metal, organic, paper, plastic.
+# Model teman memakai nama Inggris: glass, metal, paper, plastic.
 # Dipetakan lewat NAMA kelas, bukan nomor, supaya urutan tidak tertukar.
 NAME_MAP = {
     "plastic": "plastik",
     "paper": "kertas_kardus",
-    "cardboard": "kertas_kardus",
     "metal": "logam",
-    "organic": "organik",
     "glass": "kaca",
 }
 
-MODEL_PATH = Path(__file__).parent / "models" / "waste_yolov8s_best.pt"
-DEFAULT_CONF = 0.225   # confidence F1-optimal dari notebook teman
+MODEL_PATH = Path(__file__).parent / "models" / "waste_yolov8s_best1.pt"
+DEFAULT_CONF = 0.45    # sekitar titik F1 terbaik di notebook teman (uji 0,43; validasi 0,52)
 IMGSZ = 640            # sama dengan ukuran saat model dilatih
 
 _model = None
@@ -27,7 +25,7 @@ def _get_model():
         if not MODEL_PATH.exists():
             raise FileNotFoundError(
                 f"Model tidak ditemukan: {MODEL_PATH}. "
-                "Taruh best_waste_yolov8s.pt di folder models/."
+                "Taruh waste_yolov8s_best1.pt di folder models/."
             )
         _model = YOLO(str(MODEL_PATH))
     return _model
