@@ -13,21 +13,23 @@ NAME_MAP = {
     "glass": "kaca",
 }
 
-MODEL_PATH = Path(__file__).parent / "models" / "waste_yolov8s_best1.pt"
+MODEL_DIR = Path(__file__).parent / "models"
 DEFAULT_CONF = 0.45    # sekitar titik F1 terbaik di notebook teman (uji 0,43; validasi 0,52)
 IMGSZ = 640            # sama dengan ukuran saat model dilatih
 
 _model = None
 
+def _find_model():
+    files = sorted(MODEL_DIR.glob("*.pt")) if MODEL_DIR.exists() else []
+    if not files:
+        isi = sorted(p.name for p in MODEL_DIR.iterdir()) if MODEL_DIR.exists() else "folder models tidak ada"
+        raise FileNotFoundError(f"Tidak ada file .pt di {MODEL_DIR}. Isi folder: {isi}")
+    return files[0]
+
 def _get_model():
     global _model
     if _model is None:
-        if not MODEL_PATH.exists():
-            raise FileNotFoundError(
-                f"Model tidak ditemukan: {MODEL_PATH}. "
-                "Taruh waste_yolov8s_best1.pt di folder models/."
-            )
-        _model = YOLO(str(MODEL_PATH))
+        _model = YOLO(str(_find_model()))
     return _model
 
 def detect(image, conf_threshold=DEFAULT_CONF):
